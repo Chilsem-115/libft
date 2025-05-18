@@ -12,8 +12,18 @@
 
 #include "libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+void	ft_putendl_fd(const char *s, int fd)
 {
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
+	size_t	len;
+	char	*buf;
+
+	len = ft_strlen(s);
+	buf = malloc(len + 2);
+	if (!buf)
+		return ;
+	ft_memcpy(buf, s, len);
+	buf[len] = '\n';
+	buf[len + 1] = '\0';
+	write(fd, buf, len +1);
+	free(buf);
 }
